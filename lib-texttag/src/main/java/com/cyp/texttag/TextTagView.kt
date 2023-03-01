@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import com.cyp.texttag.databinding.ItemTextTagBinding
@@ -44,7 +45,11 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 		setTagText(tvTagText)
 		setTagTextColor(tvTagTextColor)
 		
-		setTagImageRes(imgTagRes, tvTagWidth, tvTagHeight, tvTagSize)
+		if (tvTagSize > 0) {
+			setTagImageRes(imgTagRes, tvTagSize, tvTagSize)
+		} else {
+			setTagImageRes(imgTagRes, tvTagWidth, tvTagHeight)
+		}
 		
 		setText(text)
 	}
@@ -65,33 +70,26 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 	}
 	
 	fun setTagText(tagText: String?) {
-		with(vb.tvTag) {
-			if (!tagText.isNullOrEmpty()) {
-				this.text = tagText
-			}
-		}
+		vb.tvTag.text = tagText
 	}
 	
 	fun setTagTextColor(tvTagTextColor: Int) {
 		vb.tvTag.setTextColor(tvTagTextColor)
 	}
 	
-	fun setTagImageRes(res: Int, w: Int, h: Int, size: Int = 0) {
-		with(vb.imgTag) {
-			if (res != 0) {
-				this.setImageResource(res)
-				layoutParams = layoutParams.also {
-					if (size <= 0) {
-						it.width = w
-						it.height = h
-					} else {
-						it.width = size
-						it.height = size
-					}
+	fun setTagImageRes(res: Int, w: Int = 0, h: Int = 0) {
+		if (res != 0) {
+			vb.imgTag.setImageResource(res)
+			if (w != 0 && h != 0) {
+				vb.imgTag.layoutParams = vb.imgTag.layoutParams.also {
+					it.width = w
+					it.height = h
 				}
 			}
 		}
 	}
+	
+	fun getTagImageView() = vb.imgTag
 	
 	/**
 	 * 设置文本内容
@@ -104,7 +102,7 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 		if (str.isNullOrEmpty() || maxLines < 1) {
 			vb.tvContent2.isGone = true
 			vb.tvContent1.maxLines = Int.MAX_VALUE
-			setLineSpace(false)
+			setRealLineSpace(false)
 			return
 		}
 		vb.tvContent1.post {
@@ -122,7 +120,7 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 					//最多显示一行，且一行能显示下所有内容，隐藏上面的TextView
 					vb.tvContent1.isGone = true
 					vb.tvContent2.text = str
-					setLineSpace(false)
+					setRealLineSpace(false)
 				}
 				line > maxLines && maxLines == 1 -> {
 					//最多显示一行且实际行数大于一行
@@ -130,7 +128,7 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 					vb.imgTag.isGone = false
 					vb.tvContent1.isGone = true
 					vb.tvContent2.text = str
-					setLineSpace(false)
+					setRealLineSpace(false)
 				}
 				line > maxLines -> {
 					//最大行数<全部行数
@@ -141,23 +139,27 @@ class TextTagView(context: Context, attributeSet: AttributeSet?) : ConstraintLay
 					vb.tvContent2.text = str.substring(s)
 					vb.tvTag.isGone = false
 					vb.imgTag.isGone = false
-					setLineSpace(true)
+					setRealLineSpace(true)
 				}
 				else -> {
 					//最大行数>=全部行数
 					//隐藏第二个TextView
 					vb.tvContent2.isGone = true
-					setLineSpace(false)
+					setRealLineSpace(false)
 				}
 			}
 		}
+	}
+	
+	fun setLineSpace(lineSpace: Int) {
+		this.lineSpace = lineSpace
 	}
 	
 	/**
 	 * 设置行间距
 	 * @param bothTextShow 是否2个TextView都显示
 	 */
-	private fun setLineSpace(bothTextShow: Boolean) {
+	private fun setRealLineSpace(bothTextShow: Boolean) {
 		vb.tvContent1.setLineSpacing(lineSpace.toFloat(), 1f)
 		if (bothTextShow) {
 			val realSpace = if (bothTextShow) lineSpace else 0
