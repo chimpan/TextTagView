@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TextTagView">
+        <!--        行间距-->
+        <attr name="ttv_line_space" format="dimension" />
+        <!--        内容-->
+        <attr name="ttv_text" format="string" />
+        <!--        文字大小-->
+        <attr name="ttv_text_size" format="dimension" />
+        <!--        文字颜色-->
+        <attr name="ttv_text_color" format="color" />
+        <!--        最大行数-->
+        <attr name="ttv_max_lines" format="integer" />
+        <!--        图片标签-->
+        <attr name="ttv_tag_img_src" format="reference" />
+        <!--        文字标签-->
+        <attr name="ttv_tag_text" format="string" />
+        <!--        文字标签颜色-->
+        <attr name="ttv_tag_text_color" format="color" />
+        <!--        标签大小，宽高相等-->
+        <attr name="ttv_tag_size" format="dimension" />
+        <!--        标签大小宽-->
+        <attr name="ttv_tag_width" format="dimension" />
+        <!--        标签大小高-->
+        <attr name="ttv_tag_height" format="dimension" />
+
+    </declare-styleable>
+</resources>

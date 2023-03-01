@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="全部内容："
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.cyp.texttag.AlignTextView
+        android:id="@+id/tv_origin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:textColor="#999"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="折叠效果：(文字标签)"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.cyp.texttag.TextTagView
+        android:id="@+id/ttv_text_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        app:ttv_line_space="15dp"
+        app:ttv_tag_text="全文"
+        app:ttv_max_lines="1"
+        app:ttv_tag_text_color="#f00"
+        app:ttv_text_color="#666"
+        app:ttv_text_size="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="折叠效果：(图片标签)"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <com.cyp.texttag.TextTagView
+        android:id="@+id/ttv_img_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        app:ttv_line_space="15dp"
+        app:ttv_max_lines="3"
+        app:ttv_tag_img_src="@drawable/ic_action_name"
+        app:ttv_tag_size="18dp"
+        app:ttv_text_color="#666"
+        app:ttv_text_size="14sp" />
+
+</LinearLayout>
