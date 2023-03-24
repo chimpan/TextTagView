@@ -30,6 +30,9 @@
 |getTagImageView|获取图片标签控件（网络图片自行设置）|
 ## 如何使用
 ```
+ implementation 'com.github.chimpan:TextTagView:1.0.0'
+```
+```
  <com.cyp.texttag.TextTagView
         android:id="@+id/ttv_text_tag"
         android:layout_width="match_parent"
